@@ -8,69 +8,74 @@ var vermelho = 'red';
 var branco = 'white';
 var raioPadrao = 10;
 
-function reloadPage(){location.reload();}
-function desenhaCirculo(x,y,raio,cor) {
+function reloadPage() { location.reload(); }
+function desenhaCirculo(x, y, raio, cor) {
     pincel.fillStyle = cor;
     pincel.beginPath();
-    pincel.arc(x, y, raio, 0, 2* Math.PI);
-    pincel.fill();}
+    pincel.arc(x, y, raio, 0, 2 * Math.PI);
+    pincel.fill();
+}
 
-function desenhaFundo(){
+function desenhaFundo() {
     pincel.fillStyle = 'lightblue';
-    pincel.fillRect(0,0,600,400);}
+    pincel.fillRect(0, 0, 600, 400);
+}
 
-function limpaTela(){
-    pincel.clearRect(0,0,600,400)};
+function limpaTela() {
+    pincel.clearRect(0, 0, 600, 400)
+};
 
-function desenhaAlvo(){       
-    var randomX = Math.round((Math.random()*540)+30);
-    var randomY = Math.round((Math.random()*340)+30);
+function desenhaAlvo() {
+    var randomX = Math.round((Math.random() * 540) + 30);
+    var randomY = Math.round((Math.random() * 340) + 30);
 
     limpaTela();
     desenhaFundo();
     desenhaCirculo(
-        randomX, randomY, raioPadrao*3, vermelho);
+        randomX, randomY, raioPadrao * 3, vermelho);
     desenhaCirculo(
-        randomX, randomY, raioPadrao*2, branco);
+        randomX, randomY, raioPadrao * 2, branco);
     desenhaCirculo(
-        randomX, randomY, raioPadrao*1, vermelho);
+        randomX, randomY, raioPadrao * 1, vermelho);
 
-    if (contador>0) {contador--}
-        else{
-            mostraPontos();
-            clearInterval(ligaTimer); 
-            ligaTimer=0;
-            document.getElementById("botao0").innerHTML="<h1>JOGAR DE NOVO!</h1>"
-        };
+    if (contador > 0) { contador-- }
+    else {
+        mostraPontos();
+        clearInterval(ligaTimer);
+        ligaTimer = 0;
+        document.getElementById("botao0").innerHTML = "<h1>JOGAR DE NOVO!</h1>"
+    };
 
     document.getElementById("botao2").innerHTML =
-     "<h1>Timer:"+ contador +"</h1>";
+        "<h1>Timer:" + contador + "</h1>";
 
-    clickbox = [randomX-30,randomY-30,randomX+30,randomY+30];
+    clickbox = [randomX - 30, randomY - 30, randomX + 30, randomY + 30];
 }
 
 
-function verifica(evento){
+function verifica(evento) {
     var cliqueX = evento.pageX - tela.offsetLeft;
     var cliqueY = evento.pageY - tela.offsetTop;
     if (
-        cliqueX>clickbox[0]&&
-        cliqueY>clickbox[1]&&
-        cliqueX<clickbox[2]&&
-        cliqueY<clickbox[3]
-        ){
+        cliqueX > clickbox[0] &&
+        cliqueY > clickbox[1] &&
+        cliqueX < clickbox[2] &&
+        cliqueY < clickbox[3]
+    ) {
         pontos = pontos + 10;
-       document.getElementById("botao1").innerHTML="<h1>Pontos: "+pontos+"</h1>";
-    }}
+        document.getElementById("botao1").innerHTML = "<h1>Pontos: " + pontos + "</h1>";
+    }
+}
 
-function mostraPontos(){
-    alert ('Você fez ' + pontos + " pontos.")}
+function mostraPontos() {
+    alert('Você fez ' + pontos + " pontos.")
+}
 
 //body:
 
 desenhaFundo();
-document.getElementById("botao1").innerHTML = 
-"<h1>Pontos: "+pontos+"</h1>";
+document.getElementById("botao1").innerHTML =
+    "<h1>Pontos: " + pontos + "</h1>";
 desenhaAlvo();
 ligaTimer;
 tela.onclick = verifica;
